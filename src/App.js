@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { StateContextProvider } from '_contexting/context'
+import { Routes } from 'components/pages/routes'
 
-export default App;
+import { ThemeProvider } from 'styled-components'
+import { Theme } from 'config/theme'
+import { GlobalStyles } from './global.styles'
+
+export const App = () => (
+  <>
+    <ThemeProvider theme={Theme}>
+      <GlobalStyles />
+      <StateContextProvider>
+        <Router>
+          {Routes.map(({ Component, redirect, ...routeData }) => (
+            <Route key={routeData.path} {...routeData}>
+              { redirect && <Redirect to={redirect.to} /> }
+              { Component && <Component /> }
+            </Route>
+          ))}
+        </Router>
+      </StateContextProvider>
+    </ThemeProvider>
+  </>
+)

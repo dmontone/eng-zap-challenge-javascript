@@ -1,68 +1,22 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Zap Challenge
 
-In the project directory, you can run:
+Este é o desafio de código do Grupo ZAP desenvolvido por mim, [Denis Montone](http://github.com/dmontone). =)
 
-### `npm start`
+Foi feito em React, partindo do [Create React App](https://github.com/facebook/create-react-app). Para os estilos, utilizei o [Styled Components](https://styled-components.com/). Os testes são feitos usando o [Testing Library](https://testing-library.com/), especificamente o **/react** e o **/react-hooks**, além do **/extend-dom** para os métodos de assert. O build final pode ser feito em uma imagem [Docker](http://www.docker.com).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Ambiente de desenvolvimento
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+-  Para iniciar um ambiente de desenvolvimento é necessário ter o [Node](www.nodejs.org) instalado no seu ambiente.
+- Para instalar as dependências do projeto, rode o comando `npm i`
+- Então o comando `npm start` iniciará o processo de bundle do projeto. Ao fim, uma aba no seu navegador padrão será aberta no endereço e porta **http://localhost:3000**.
+*Se a porta estiver ocupada, o terminal irá perguntar se deseja usar a próxima porta disponível.*
 
-### `npm test`
+### Testes
+Para rodar os testes sem relatórios de cobertura (indicado para processos de deploy), use o comando `npm run test:ci`
+Para rodar os testes com relatórios de cobertura (indicado para ambiente de desenvolvimento), use o comando `npm run test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Deploy
+Para o deploy uma imagem Docker é configurada pelo arquivo Dockerfile, na raiz do repositório. Para construir a imagem final são utilizadas duas imagens (multi-stage), para o bundle dos arquivos a imagem é a **node:13-alpine** e para exposição dos artefatos a imagem é **nginx:stable-alpine**.
+Para criar a imagem, use o comando `npm run docker:build`. Este comando gerará uma imagem com a tag **zap:challenge**.
+Após a criação, a validação e testes da versão para deploy podem ser feitos rodando a imagem com o comando `docker:run`. Isso exporá o conteúdo da imagem para fora do Docker na porta `1337`, portanto visivel do seu navegador com o endereço **http://localhost:1337**.
